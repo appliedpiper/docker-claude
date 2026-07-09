@@ -1,0 +1,41 @@
+services:
+  claude-code:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+    image: claude-code-cli:latest
+    container_name: claude-code-cli
+ 
+    environment:
+      # Put your key in a .env file next to this compose file:
+      #   ANTHROPIC_API_KEY=sk-ant-...
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+ 
+    volumes:
+      # Path to your actual project on the host. Set PROJECT_PATH in .env,
+      # e.g. PROJECT_PATH=../my-app. Defaults to ./project if unset.
+      - ${PROJECT_PATH:-./project}:/workspace
+ 
+      # Where Claude Code's own config/auth/session history is stored, so
+      # you don't have to log in again every time the container is recreated.
+      # Leave CLAUDE_CONFIG_PATH unset in .env to use the named volume
+      # `claude-config` below (recommended). Or set it to a host path
+      # (e.g. CLAUDE_CONFIG_PATH=./claude-config) to use a bind mount instead
+      # so you can browse/back up the config files directly.
+      - ${CLAUDE_CONFIG_PATH:-claude-config}:/home/claude/.claude
+ 
+      # NOTE: entrypoint is `sleep infinity`, so this container is meant to be
+      # left running and interacted with via `exec`, not `run`:
+      # docker compose up -d
+      # docker compose exec claude-code bash
+      # then inside that shell:
+      # claude
+    working_dir: /workspace
+ 
+volumes:
+  # Only actually used when CLAUDE_CONFIG_PATH is unset in .env (the default).
+  # Harmless to leave declared even if you switch to a bind mount instead.
+  claude-config:

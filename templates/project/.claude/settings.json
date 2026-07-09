@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "Bash(pnpm test*)",
+      "Bash(pnpm vitest*)",
+      "Bash(pnpm install*)",
+      "Bash(npx vitest*)",
+      "Bash(npm run test*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf /workspace/*)"
+    ]
+  }
+}

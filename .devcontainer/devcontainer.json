@@ -1,0 +1,26 @@
+{
+  "name": "claude-code-cli",
+ 
+  // Reuse the existing compose file instead of duplicating build config.
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "claude-code",
+ 
+  // Keep the container running after VS Code disconnects, so you don't
+  // lose it between sessions (compose entrypoint is `sleep infinity`,
+  // this just also governs what devcontainer CLI does).
+  "shutdownAction": "none",
+ 
+  // Where the bind-mounted project lives inside the container
+  // (must match the compose volume target).
+  "workspaceFolder": "/workspace",
+ 
+  // Container already has git/node/claude installed via the Dockerfile;
+  // add VS Code extensions you want available inside the container here.
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  },
+ 
+  "remoteUser": "claude"
+}
