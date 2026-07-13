@@ -13,6 +13,7 @@ services:
       # Put your key in a .env file next to this compose file:
       #   ANTHROPIC_API_KEY=sk-ant-...
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-}
  
     volumes:
       # Path to your actual project on the host. Set PROJECT_PATH in .env,
