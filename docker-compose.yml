@@ -20,12 +20,7 @@ services:
       # e.g. PROJECT_PATH=../my-app. Defaults to ./project if unset.
       - ${PROJECT_PATH:-./project}:/workspace
  
-      # Where Claude Code's own config/auth/session history is stored, so
-      # you don't have to log in again every time the container is recreated.
-      # Leave CLAUDE_CONFIG_PATH unset in .env to use the named volume
-      # `claude-config` below (recommended). Or set it to a host path
-      # (e.g. CLAUDE_CONFIG_PATH=./claude-config) to use a bind mount instead
-      # so you can browse/back up the config files directly.
+      # Where Claude Code's own config/auth/session history is stored
       - ${CLAUDE_CONFIG_PATH:-claude-config}:/home/claude/.claude
  
       # NOTE: entrypoint is `sleep infinity`, so this container is meant to be
